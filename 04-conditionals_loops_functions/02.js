@@ -14,3 +14,19 @@
  * find both ways!
  *
  */
+
+for (let i = 5; i < 1000; i+=5) {
+    console.log(i)
+}
+
+for (let i = 100; i > -100; i--) {
+    console.log(i)
+}
+let count = 0;
+let plus3 = true;
+
+for (let i = 0; i < 5000; i++) {
+    console.log(count);
+    count += plus3 ? 3 : -1;
+    plus3 = !plus3;
+}
