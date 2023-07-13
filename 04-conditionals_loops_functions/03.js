@@ -9,3 +9,9 @@ function getRandomNumber(){
  *    random numbers until it has generated one that is divisible by 11. Do you
  *    remember what operator to use?
  */
+let randomNumber = getRandomNumber();
+while (randomNumber % 11 !== 0){
+    console.log(getRandomNumber())
+    randomNumber = getRandomNumber();
+}
+console.log("Found it! The number is: " + randomNumber);

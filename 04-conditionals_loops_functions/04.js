@@ -7,7 +7,7 @@
  *    code below functions without error.
  *
  * 2. Research and write a function that uses the pythagorean formula to get the
- *    length of the hypotenuse of a right angled triangle. It should take in two
+ *    length of the hypotenuse of a right-angled triangle. It should take in two
  *    arguments, the two shorter sides of a triangle, and return the longest
  *    side. Call the function "pythagoras". After writing your function the code
  *    below should work without error.
@@ -21,14 +21,34 @@
  */
 
 // Write your code here:
+function KtoC(k) {
+    return k - 273.15;
+}
+function CtoK(c) {
+    return c + 273.15;
+}
+function FtoK(f) {
+    return (f - 32) * (5/9) + 273.15;
+}
 
-
-
-
-
-
-
-
+function KtoF(k) {
+    return (k - 273.15) *  (9/5) + 32;
+}
+function pythagoras(a, b) {
+    return Math.sqrt(a * a + b * b);
+}
+function inchToCm(i) {
+    return i * 2.54;
+}
+function CmToInch(c) {
+    return c / 2.54;
+}
+function MToKm(m) {
+    return m * 1.60934;
+}
+function KmToM(k) {
+    return k / 1.60934;
+}
 
 // Do not modify anything below this line
 
