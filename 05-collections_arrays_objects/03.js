@@ -1,5 +1,5 @@
 /**
- * Below is a two dimensional list of stores. Each store is represented by a
+ * Below is a two-dimensional list of stores. Each store is represented by a
  * sub-list that contains a unique identifier, its name, its state, its location
  * in the city, and its city.
  *
@@ -70,3 +70,41 @@ stores =  [
     [ '4003IN', 'Target', 'IN', 'North', 'Attica' ],
     [ '4003KY', 'Target', 'KY', 'North', 'Ashland' ]
 ]
+
+// 1. Log only the city of each store.
+for (let i = 0; i < stores.length; i++) {
+    console.log(stores[i][4]);
+}
+
+// 2. Log only the names of stores in state "CA".
+for (let i = 0; i < stores.length; i++) {
+    if (stores[i][2] === 'CA') {
+        console.log(stores[i][1]);
+    }
+}
+
+// 3. Log the number of Target stores in total.
+let targetCount = 0;
+for (let i = 0; i < stores.length; i++) {
+    if (stores[i][1] === 'Target') {
+        targetCount++;
+    }
+}
+console.log("There are " + targetCount + " Target stores in total.");
+
+// 4. Log the number of each type of store. I.e. 5 Targets, 10 K-Marts - log
+// these with a presentation string. I.e. "There are __ K-Marts in total."
+let storeCounts = {};
+for (let i = 0; i < stores.length; i++) {
+    let storeName = stores[i][1];
+
+    if (storeCounts.hasOwnProperty(storeName)) {
+        storeCounts[storeName] += 1;
+    } else {
+        storeCounts[storeName] = 1;
+    }
+}
+
+for (let store in storeCounts) {
+    console.log("There are " + storeCounts[store] + " " + store + " stores in total.");
+}
