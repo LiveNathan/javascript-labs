@@ -982,5 +982,11 @@ const calculateAccountBalances = (expenses) => {
 console.log(calculateAccountBalances(expenses));
 
 // 4. Create a new array that only has the date, description, and amount of rows that have the category "Eating Out".
+const eatingOut = expenses
+    .filter(expense => expense[2] === 'Eating Out')
+    .map(expense => [expense[0], expense[1], expense[3]]);
 
 // 5. Create another array with only the date, description and amount of rows that have the category "Gear and Clothing".
+const gearClothing = expenses
+    .filter(expense => expense[2] === 'Gear and Clothing')
+    .map(expense => [expense[0], expense[1], expense[3]]);
