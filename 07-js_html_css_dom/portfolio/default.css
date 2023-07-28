@@ -1,4 +1,44 @@
-#left { width: 75%; }
-#right { width: 25%; }
-body { background-color: #d5d5d5; color: #414141; }
-#footer { background-color: #414141; color: #d5d5d5; font-size: 12px; }
+#main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+#left {
+    flex-grow: 3;
+    order: 1;
+}
+
+#right {
+    flex-grow: 1;
+    order: 2;
+}
+
+#footer {
+    order: 3;
+    background-color: #414141;
+    color: #EEEEEE;
+    font-size: 12px;
+}
+
+body {
+    background-color: #EEEEEE;
+    color: #414141;
+}
+
+body.dark-mode {
+    background-color: #414141;
+    color: #EEEEEE;
+}
+
+#footer.dark-mode {
+    background-color: #000000;
+}
