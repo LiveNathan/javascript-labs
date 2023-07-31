@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Right Triangle Solver</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Right Triangle Solver</h1>
+<label for="a-side">a</label><input id="a-side" name="a-side" type="number" min="0.01">
+<label for="b-side">b</label><input id="b-side" name="b-side" type="number" min="0.01">
+<button id="calculate">calculate</button>
+<p id="c-side"></p>
+
+<script>
+    window.addEventListener('load', () => {
+        const calculateButton = document.querySelector('#calculate');
+        const cSide = document.querySelector('#c-side');
+
+        calculateButton.addEventListener('click', calculate);
+
+        function calculate() {
+            const aSideInput = document.querySelector('#a-side');
+            const bSideInput = document.querySelector('#b-side');
+            const aSide = Number(aSideInput.value);
+            const bSide = Number(bSideInput.value);
+            cSide.innerText = "c: " + Math.sqrt((aSide ** 2) + (bSide ** 2));
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 500;
+        canvas.height = 500;
+        document.body.appendChild(canvas);
+        const context = canvas.getContext("2d");
+
+        context.beginPath();
+        context.moveTo(50, 50); // start at top left corner of canvas
+        context.lineTo(50, 400); // go down
+        context.lineTo(450, 400); // go right
+        context.closePath(); // go back to start
+
+        context.lineWidth = 5;
+        context.strokeStyle = "#000";
+        context.stroke();
+    });
+</script>
+</body>
+</html>
