@@ -1,0 +1,48 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+#left {
+    flex-grow: 3;
+    order: 1;
+}
+
+#right {
+    flex-grow: 1;
+    order: 2;
+}
+
+#text-size-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#footer {
+    order: 3;
+    background-color: #414141;
+    color: #EEEEEE;
+}
+
+body {
+    background-color: #EEEEEE;
+    color: #414141;
+    font-family: 'Roboto', sans-serif;
+}
+
+body.dark-mode {
+    background-color: #414141;
+    color: #EEEEEE;
+}
+
+#footer.dark-mode {
+    background-color: #000000;
+}
