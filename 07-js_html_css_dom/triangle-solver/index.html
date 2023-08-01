@@ -2,51 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Right Triangle Solver</title>
+    <title>Solve Triangle Solver</title>
     <style>
-        canvas {
-            border: 1px solid black;
+        #calculator-with-image {
+            position: relative;
+        }
+
+        #calculator-inputs {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            right: 0;
+            width: 70%;
+            z-index: 100;
+            background-color: rgba(211, 211, 211, 0.3);
+            padding: 10px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        #result {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #a, label[for="a"] {
+            color: red;
+        }
+
+        #b, label[for="b"] {
+            color: orange;
+        }
+
+        #c, label[for="c"] {
+            color: blue;
+        }
+
+        #d, label[for="d"] {
+            color: green;
+        }
+
+        #e, label[for="e"] {
+            color: darkgray;
         }
     </style>
 </head>
 <body>
-<h1>Right Triangle Solver</h1>
-<label for="a-side">a</label><input id="a-side" name="a-side" type="number" min="0.01">
-<label for="b-side">b</label><input id="b-side" name="b-side" type="number" min="0.01">
-<button id="calculate">calculate</button>
-<p id="c-side"></p>
+<h1>Solve Triangle Solver</h1>
+<div id="calculator-with-image">
+    <div id="calculator-inputs">
+        <label for="a">A (array span)</label><input id="a" name="a" type="number" min="0.01">
+        <label for="b">B (array depth)</label><input id="b" name="b" type="number" min="0.01">
+        <label for="c">C (ground to bottom of array)</label><input id="c" name="c" type="number" min="0.01">
+        <label for="d">D (distance to FOH)</label><input id="d" name="d" type="number" min="0.01">
+        <label for="e">E (audience head height)</label><input id="e" name="e" type="number" min="0.01">
+        <button id="calculate">calculate</button>
+    </div>
+    <img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2F1fcd2b3881caf428c215b2c2ddfc8f77.cdn.bubble.io%2Ff1662678446494x620131963488250200%2Fmain%2520triangle.png"
+         alt="triangle">
+</div>
+<p id="result"></p>
 
 <script>
-    window.addEventListener('load', () => {
-        const calculateButton = document.querySelector('#calculate');
-        const cSide = document.querySelector('#c-side');
+    const calculateButton = document.querySelector('#calculate');
+    const result = document.querySelector('#result');
 
-        calculateButton.addEventListener('click', calculate);
+    calculateButton.addEventListener('click', calculate);
 
-        function calculate() {
-            const aSideInput = document.querySelector('#a-side');
-            const bSideInput = document.querySelector('#b-side');
-            const aSide = Number(aSideInput.value);
-            const bSide = Number(bSideInput.value);
-            cSide.innerText = "c: " + Math.sqrt((aSide ** 2) + (bSide ** 2));
-        }
+    function calculate() {
+        const aInput = document.querySelector('#a');
+        const bInput = document.querySelector('#b');
+        const cInput = document.querySelector('#c');
+        const dInput = document.querySelector('#d');
+        const eInput = document.querySelector('#e');
+        const aSide = Number(aInput.value);
+        const bSide = Number(bInput.value);
+        const cSide = Number(cInput.value);
+        const dSide = Number(dInput.value);
+        const eSide = Number(eInput.value);
 
-        const canvas = document.createElement("canvas");
-        canvas.width = 500;
-        canvas.height = 500;
-        document.body.appendChild(canvas);
-        const context = canvas.getContext("2d");
+        let triangleLegA = (aSide / 2) + (cSide - eSide);
+        let triangleLegB = dSide - (bSide / 2);
+        let triangleHypotenuse = Math.sqrt((triangleLegA ** 2) + (triangleLegB ** 2));
+        result.innerText = "Distance from FOH to array: " + triangleHypotenuse.toFixed(2);
+    }
 
-        context.beginPath();
-        context.moveTo(50, 50); // start at top left corner of canvas
-        context.lineTo(50, 400); // go down
-        context.lineTo(450, 400); // go right
-        context.closePath(); // go back to start
 
-        context.lineWidth = 5;
-        context.strokeStyle = "#000";
-        context.stroke();
-    });
 </script>
 </body>
 </html>
