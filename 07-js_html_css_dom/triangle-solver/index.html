@@ -54,12 +54,11 @@
 <h1>Solve Triangle Solver</h1>
 <div id="calculator-with-image">
     <div id="calculator-inputs">
-        <label for="a">A (array span)</label><input id="a" name="a" type="number" min="0.01">
-        <label for="b">B (array depth)</label><input id="b" name="b" type="number" min="0.01">
-        <label for="c">C (ground to bottom of array)</label><input id="c" name="c" type="number" min="0.01">
-        <label for="d">D (distance to FOH)</label><input id="d" name="d" type="number" min="0.01">
-        <label for="e">E (audience head height)</label><input id="e" name="e" type="number" min="0.01">
-        <button id="calculate">calculate</button>
+        <label for="a">A (array span)</label><input id="a" name="a" type="number" min="0">
+        <label for="b">B (array depth)</label><input id="b" name="b" type="number" min="0">
+        <label for="c">C (ground to bottom of array)</label><input id="c" name="c" type="number" min="0">
+        <label for="d">D (distance to FOH)</label><input id="d" name="d" type="number" min="0">
+        <label for="e">E (audience head height)</label><input id="e" name="e" type="number" min="0">
     </div>
     <img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2F1fcd2b3881caf428c215b2c2ddfc8f77.cdn.bubble.io%2Ff1662678446494x620131963488250200%2Fmain%2520triangle.png"
          alt="triangle">
@@ -67,29 +66,44 @@
 <p id="result"></p>
 
 <script>
-    const calculateButton = document.querySelector('#calculate');
     const result = document.querySelector('#result');
+    const aInput = document.querySelector('#a');
+    const bInput = document.querySelector('#b');
+    const cInput = document.querySelector('#c');
+    const dInput = document.querySelector('#d');
+    const eInput = document.querySelector('#e');
 
-    calculateButton.addEventListener('click', calculate);
+    aInput.addEventListener('input', calculate);
+    bInput.addEventListener('input', calculate);
+    cInput.addEventListener('input', calculate);
+    dInput.addEventListener('input', calculate);
+    eInput.addEventListener('input', calculate);
 
     function calculate() {
-        const aInput = document.querySelector('#a');
-        const bInput = document.querySelector('#b');
-        const cInput = document.querySelector('#c');
-        const dInput = document.querySelector('#d');
-        const eInput = document.querySelector('#e');
+
         const aSide = Number(aInput.value);
         const bSide = Number(bInput.value);
         const cSide = Number(cInput.value);
         const dSide = Number(dInput.value);
         const eSide = Number(eInput.value);
 
-        let triangleLegA = (aSide / 2) + (cSide - eSide);
-        let triangleLegB = dSide - (bSide / 2);
-        let triangleHypotenuse = Math.sqrt((triangleLegA ** 2) + (triangleLegB ** 2));
-        result.innerText = "Distance from FOH to array: " + triangleHypotenuse.toFixed(2);
+        if (aSide && bSide && cSide && dSide && eSide) {
+            let triangleLegA = (aSide / 2) + (cSide - eSide);
+            let triangleLegB = dSide - (bSide / 2);
+            let triangleHypotenuse = Math.sqrt((triangleLegA ** 2) + (triangleLegB ** 2));
+            result.innerText = "Distance from FOH to array: " + triangleHypotenuse.toFixed(2);
+        } else {
+            result.innerText = '';
+        }
     }
 
+    document.querySelectorAll('input[type="number"]').forEach(function(input) {
+        input.addEventListener('keypress', function(evt){
+            const charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                evt.preventDefault();
+        });
+    });
 
 </script>
 </body>
