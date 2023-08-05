@@ -13,15 +13,20 @@
 <h1>7</h1>
 <h2>Where you are</h2>
 <ul>
-    <li id="ipAddress">IP address</li>
-    <li id="country">country</li>
-    <li id="region">region</li>
-    <li id="city">city</li>
-    <li id="latitude">latitude</li>
-    <li id="longitude">longitude</li>
-    <li id="timeZone">Time Zone: </li>
-    <li id="date">Date: </li>
-    <li id="time">Time: </li>
+    Displays the flag of the country you are in, the country code, the population, the area, the language and the regional bloc
+
+    <li id="ipAddress">IP Address</li>
+    <li id="country">Country</li>
+    <li id="countryCode">Country Code</li>
+    <li id="countryFlag">Country Flag</li>
+    <li id="countryPopulattion">Country Population</li>
+    <li id="region">Region</li>
+    <li id="city">City</li>
+    <li id="latitude">Latitude</li>
+    <li id="longitude">Longitude</li>
+    <li id="timeZone">Time Zone</li>
+    <li id="date">Date</li>
+    <li id="time">Time</li>
 </ul>
 
 <script>
@@ -32,6 +37,8 @@
         let ipstackData = await ipstackResponse.json();
         let ip = ipstackData.ip;
         let country = ipstackData.country_name;
+        let countryCode = ipstackData.country_code;
+        let countryFlagEmoji = ipstackData.location.country_flag_emoji;
         let region = ipstackData.region_name;
         let city = ipstackData.city;
         let latitude = ipstackData.latitude;
@@ -39,6 +46,8 @@
 
         document.getElementById("ipAddress").textContent += ": " + ip;
         document.getElementById("country").textContent += ": " + country;
+        document.getElementById("countryCode").textContent += ": " + countryCode;
+        document.getElementById("countryFlag").textContent += ": " + countryFlagEmoji;
         document.getElementById("region").textContent += ": " + region;
         document.getElementById("city").textContent += ": " + city;
         document.getElementById("latitude").textContent += ": " + latitude;
