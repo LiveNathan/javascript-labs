@@ -51,6 +51,15 @@
         [2, 4, 6]
     ];
 
+    function checkWinCondition() {
+        for (let combo of winningCombinations) {
+            if (cells[combo[0]] && cells[combo[0]] === cells[combo[1]] && cells[combo[0]] === cells[combo[2]]) {
+                endGame(cells[combo[0]]);
+                break;
+            }
+        }
+    }
+
     function createCell(index) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
@@ -73,15 +82,6 @@
             checkWinCondition();
             currentPlayer = currentPlayer === "X" ? "O" : "X";
             currentPlayerText.innerText = currentPlayer === "X" ? "1" : "2";
-        }
-    }
-
-    function checkWinCondition() {
-        for (let combo of winningCombinations) {
-            if (cells[combo[0]] && cells[combo[0]] === cells[combo[1]] && cells[combo[0]] === cells[combo[2]]) {
-                endGame(cells[combo[0]]);
-                break;
-            }
         }
     }
 

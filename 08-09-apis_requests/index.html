@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7</title>
+    <style>
+        p {
+            font-size: small
+        }
+    </style>
+</head>
+<body>
+<h1>7</h1>
+<h2>Where you are</h2>
+<ul>
+    <li id="ipAddress">IP address</li>
+    <li id="country">country</li>
+    <li id="region">region</li>
+    <li id="city">city</li>
+    <li id="latitude">latitude</li>
+    <li id="longitude">longitude</li>
+    <li id="timeZone">Time Zone: </li>
+    <li id="date">Date: </li>
+    <li id="time">Time: </li>
+</ul>
+
+<script>
+    const IPSTACK_ACCESS_KEY = "315c943e1895202bbf4fc8129849e4b4";
+
+    async function getIpStack() {
+        let ipstackResponse = await fetch("http://api.ipstack.com/check?output=json&access_key=" + IPSTACK_ACCESS_KEY);
+        let ipstackData = await ipstackResponse.json();
+        let ip = ipstackData.ip;
+        let country = ipstackData.country_name;
+        let region = ipstackData.region_name;
+        let city = ipstackData.city;
+        let latitude = ipstackData.latitude;
+        let longitude = ipstackData.longitude;
+
+        document.getElementById("ipAddress").textContent += ": " + ip;
+        document.getElementById("country").textContent += ": " + country;
+        document.getElementById("region").textContent += ": " + region;
+        document.getElementById("city").textContent += ": " + city;
+        document.getElementById("latitude").textContent += ": " + latitude;
+        document.getElementById("longitude").textContent += ": " + longitude;
+    }
+
+    getIpStack();
+
+    async function getWorldTime() {
+        let worldTimeResponse = await fetch("http://worldtimeapi.org/api/ip");
+        let worldTimeData = await worldTimeResponse.json();
+        let timeZone = worldTimeData.timezone;
+        let dateObject = new Date(worldTimeData.datetime);
+        let formattedDate = dateObject.toLocaleDateString();
+        let formattedTime = dateObject.toLocaleTimeString();
+
+        document.getElementById("timeZone").textContent += ": " + timeZone;
+        document.getElementById("date").textContent += ": " + formattedDate;
+        document.getElementById("time").textContent += ": " + formattedTime;
+    }
+
+    getWorldTime();
+
+</script>
+</body>
+</html>
