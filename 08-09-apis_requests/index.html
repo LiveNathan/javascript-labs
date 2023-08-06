@@ -13,13 +13,14 @@
 <h1>7</h1>
 <h2>Where you are</h2>
 <ul>
-    Displays the flag of the country you are in, the country code, the population, the area, the language and the regional bloc
-
     <li id="ipAddress">IP Address</li>
     <li id="country">Country</li>
     <li id="countryCode">Country Code</li>
     <li id="countryFlag">Country Flag</li>
-    <li id="countryPopulattion">Country Population</li>
+    <li id="countryPopulation">Country Population</li>
+    <li id="countryArea">Country Area</li>
+    <li id="countryLanguage">Country Language</li>
+    <li id="countryRegionalBloc">Country Regional Bloc</li>
     <li id="region">Region</li>
     <li id="city">City</li>
     <li id="latitude">Latitude</li>
@@ -27,7 +28,16 @@
     <li id="timeZone">Time Zone</li>
     <li id="date">Date</li>
     <li id="time">Time</li>
+    <li id="timeSunrise">Sunrise</li>
+    <li id="timeSunset">Sunset</li>
+    <li id="dayLength">Day Length</li>
+    <li id="timeSolarNoon">Solar Noon Time</li>
+
+    Tells you the time on sunrise and sunset at your location, the day length and the solar noon time.
+
 </ul>
+
+<p><a href="https://sunrise-sunset.org/api">Sunset and sunrise times API</a></p>
 
 <script>
     const IPSTACK_ACCESS_KEY = "315c943e1895202bbf4fc8129849e4b4";
@@ -52,6 +62,8 @@
         document.getElementById("city").textContent += ": " + city;
         document.getElementById("latitude").textContent += ": " + latitude;
         document.getElementById("longitude").textContent += ": " + longitude;
+
+        return {countryCode, latitude, longitude};
     }
 
     getIpStack();
@@ -70,6 +82,22 @@
     }
 
     getWorldTime();
+
+    async function getCountries() {
+        const {countryCode} = await getIpStack();
+        let countriesResponse = await fetch("https://restcountries.com/v3.1/alpha/" + countryCode + "?fields=population");
+        let countriesData = await countriesResponse.json();
+        let countryPopulation = countriesData.population;
+
+        document.getElementById("countryPopulation").textContent += ": " + countryPopulation;
+    }
+
+    getCountries();
+
+    async function getSun() {
+        const {latitude, longitude} = await getIpStack();
+        let sunResponse = await fetch(`https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}`);
+    }
 
 </script>
 </body>
