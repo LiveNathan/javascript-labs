@@ -48,10 +48,14 @@
         #e, label[for="e"] {
             color: darkgray;
         }
+
+        #f, label[for="f"] {
+            color: indigo;
+        }
     </style>
 </head>
 <body>
-<h1>Solve Triangle Solver</h1>
+<h1>Right Triangle Solver</h1>
 <div id="calculator-with-image">
     <div id="calculator-inputs">
         <label for="a">A (array span)</label><input id="a" name="a" type="number" min="0">
@@ -59,6 +63,7 @@
         <label for="c">C (ground to bottom of array)</label><input id="c" name="c" type="number" min="0">
         <label for="d">D (distance to FOH)</label><input id="d" name="d" type="number" min="0">
         <label for="e">E (audience head height)</label><input id="e" name="e" type="number" min="0">
+        <label for="f">F (optional angle)</label><input id="f" name="f" type="number" min="0">
     </div>
     <img src="https://d1muf25xaso8hp.cloudfront.net/https%3A%2F%2F1fcd2b3881caf428c215b2c2ddfc8f77.cdn.bubble.io%2Ff1662678446494x620131963488250200%2Fmain%2520triangle.png"
          alt="triangle">
@@ -88,10 +93,10 @@
         const eSide = Number(eInput.value);
 
         if (aSide && bSide && cSide && dSide && eSide) {
-            let triangleLegA = (aSide / 2) + (cSide - eSide);
-            let triangleLegB = dSide - (bSide / 2);
-            let triangleHypotenuse = Math.sqrt((triangleLegA ** 2) + (triangleLegB ** 2));
-            result.innerText = "Distance from FOH to array: " + triangleHypotenuse.toFixed(2);
+            let base = (aSide / 2) + (cSide - eSide);
+            let perpendicular = dSide - (bSide / 2);
+            let hypotenuse = Math.sqrt((base ** 2) + (perpendicular ** 2));
+            result.innerText = "Distance from FOH to array: " + hypotenuse.toFixed(2);
         } else {
             result.innerText = '';
         }
