@@ -41,7 +41,7 @@
             color: blue;
         }
 
-        #d, label[for="d"] {
+        #d, label[for="d"], #d::placeholder {
             color: green;
         }
 
@@ -49,8 +49,18 @@
             color: darkgray;
         }
 
-        #f, label[for="f"] {
+        #f, label[for="f"], #f::placeholder {
             color: indigo;
+        }
+
+        #a::placeholder, #b::placeholder, #c::placeholder, #d::placeholder, #e::placeholder, #f::placeholder {
+            font-style: italic;
+        }
+
+        #f:valid::after {
+            content: "º";
+            position: absolute;
+            margin-left: -20px; /* you might need to adjust this */
         }
     </style>
 </head>
@@ -77,33 +87,43 @@
     const cInput = document.querySelector('#c');
     const dInput = document.querySelector('#d');
     const eInput = document.querySelector('#e');
-
-    aInput.addEventListener('input', calculate);
-    bInput.addEventListener('input', calculate);
-    cInput.addEventListener('input', calculate);
-    dInput.addEventListener('input', calculate);
-    eInput.addEventListener('input', calculate);
+    const fInput = document.querySelector('#f');
+    const calculatorInput = document.querySelector('#calculator-inputs');
+    calculatorInput.addEventListener('input', calculate)
 
     function calculate() {
-
         const aSide = Number(aInput.value);
         const bSide = Number(bInput.value);
         const cSide = Number(cInput.value);
         const dSide = Number(dInput.value);
         const eSide = Number(eInput.value);
+        const fAngle = Number(fInput.value);
 
-        if (aSide && bSide && cSide && dSide && eSide) {
-            let base = (aSide / 2) + (cSide - eSide);
-            let perpendicular = dSide - (bSide / 2);
-            let hypotenuse = Math.sqrt((base ** 2) + (perpendicular ** 2));
+        if (cSide > 0 && dSide > 0) {
+            let perpendicular = (aSide / 2) + (cSide - eSide);
+            let base = dSide - (bSide / 2);
+            let hypotenuse = Math.sqrt((perpendicular ** 2) + (base ** 2));
             result.innerText = "Distance from FOH to array: " + hypotenuse.toFixed(2);
+
+            fInput.value = '';
+            let acuteAngle = Math.asin(perpendicular / hypotenuse) * (180 / Math.PI);
+            fInput.placeholder = acuteAngle.toFixed(2);
+        } else if (cSide > 0 && fAngle > 0) {
+            let perpendicular = (aSide / 2) + (cSide - eSide);
+            let fAngleRad = fAngle * Math.PI / 180;
+            let hypotenuse = perpendicular / Math.sin(fAngleRad);
+            result.innerText = "Distance from FOH to array: " + hypotenuse.toFixed(2);
+
+            dInput.value = '';
+            let base = Math.sqrt((hypotenuse ** 2) - (perpendicular ** 2));
+            dInput.placeholder = base.toFixed(2);
         } else {
             result.innerText = '';
         }
     }
 
-    document.querySelectorAll('input[type="number"]').forEach(function(input) {
-        input.addEventListener('keypress', function(evt){
+    document.querySelectorAll('input[type="number"]').forEach(function (input) {
+        input.addEventListener('keypress', function (evt) {
             const charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                 evt.preventDefault();
