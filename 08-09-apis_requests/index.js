@@ -1,9 +1,5 @@
-const IPSTACK_ACCESS_KEY = "315c943e1895202bbf4fc8129849e4b4";
-const ipStackPromise = getIpStack();
-const worldTimePromise = getWorldTime();
-const sunPromise = getSun();
-
 async function getIpStack() {
+    const IPSTACK_ACCESS_KEY = "315c943e1895202bbf4fc8129849e4b4";
     try {
         let ipstackResponse = await fetch("http://api.ipstack.com/check?output=json&access_key=" + IPSTACK_ACCESS_KEY);
         let ipstackData = await ipstackResponse.json();
@@ -27,7 +23,7 @@ async function getIpStack() {
         document.getElementById("latitude").textContent += ": " + latitude;
         document.getElementById("longitude").textContent += ": " + longitude;
 
-        return {countryCode, latitude, longitude};
+        return {countryCode: data.country_code, latitude: data.latitude, longitude: data.longitude};
     } catch (error) {
         console.error('Error fetching IP Stack:', error);
     }
@@ -54,7 +50,7 @@ async function getWorldTime() {
 
 async function getCountries() {
     try {
-        const {countryCode} = await ipStackPromise;
+        const {countryCode} = await getIpStack();
         let countriesResponse = await fetch("https://restcountries.com/v3.1/alpha/" + countryCode + "?fields=population");
         let countriesData = await countriesResponse.json();
         let countryPopulation = countriesData.population;
@@ -69,7 +65,7 @@ getCountries();
 
 async function getSun() {
     try {
-        const {latitude, longitude} = await ipStackPromise;
+        const {latitude, longitude} = await getIpStack();
         let sunResponse = await fetch(`https://api.sunrise-sunset.org/json?formatted=0&lat=${latitude}&lng=${longitude}`);
         let sunData = await sunResponse.json();
         let sunResults = sunData.results;
@@ -122,8 +118,8 @@ async function getIssPeople() {
 getIssPeople();
 
 async function getSunMultiplier() {
-    const {sunriseTime, sunsetTime, solarNoonTime} = await sunPromise;
-    const currentTime = await worldTimePromise;
+    const {sunriseTime, sunsetTime, solarNoonTime} = await getSun();
+    const currentTime = await getWorldTime();
 
     const sunrise = sunriseTime.getTime();
     const sunset = sunsetTime.getTime();
