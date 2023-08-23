@@ -10,13 +10,19 @@
     flex-grow: 1;
 }
 
+h1 {
+    font-size: 3rem;
+}
+
 #left {
-    flex-grow: 3;
+    /*flex-grow: 3;*/
     order: 1;
 }
 
 #right {
-    flex-grow: 1;
+    /*flex-grow: 1;*/
+    flex-shrink: 0;
+    min-width: 7rem;
     order: 2;
 }
 
